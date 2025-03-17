@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Search, ShoppingCart, MapPin } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 0);
@@ -15,85 +15,83 @@ const Header: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menu when clicking outside
-  useEffect(() => {
-    if (isMenuOpen) {
-      const handleClickOutside = (event: MouseEvent) => {
-        const target = event.target as HTMLElement;
-        if (!target.closest('nav') && !target.closest('button')) {
-          setIsMenuOpen(false);
-        }
-      };
-      
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }
-  }, [isMenuOpen]);
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Implement search functionality here
+    console.log("Searching for:", searchQuery);
+  };
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full px-6 py-4 flex justify-between items-center z-50 transition-all duration-500 ${
-        isScrolled ? "bg-red-500 shadow-md py-3" : "bg-transparent"
+      className={`fixed top-0 left-0 w-full px-6 py-3 flex justify-between items-center z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white shadow-md" : "bg-white"
       }`}
     >
-      {/* Logo */}
-      <Link href="/" className="flex items-center">
-        <Image
-          src="/images/minitos-White.png"
-          alt="Logo"
-          width={100}
-          height={40}
-        />
-      </Link>
-
-      {/* Mobile Menu Button - Visible only when menu is closed */}
-      {!isMenuOpen && (
-        <button
-          className="lg:hidden text-black focus:outline-none"
-          onClick={() => setIsMenuOpen(true)}
-          aria-label="Open Menu"
-        >
-          <Menu size={28} color={'black'} />
-        </button>
-      )}
-
-      {/* Slide-in Mobile Menu from Right */}
-      <div
-        className={`fixed top-0 right-0 h-full w-3/4 sm:w-1/2 bg-red-600 transition-transform transform ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        } lg:translate-x-0 lg:static lg:w-auto lg:bg-transparent lg:flex z-50`}
-      >
-        {/* Close button inside the mobile menu */}
-        <button
-          className="absolute top-4 right-4 lg:hidden text-white focus:outline-none"
-          onClick={() => setIsMenuOpen(false)}
-          aria-label="Close Menu"
-        >
-          <X size={28} />
-        </button>
+      <div className="flex items-center space-x-6">
+        {/* Logo */}
+        <Link href="/" className="flex items-center">
+          <span className="text-xl font-bold text-gray-800">Minutos</span>
+        </Link>
         
-        <nav className="p-6 mt-12 lg:mt-0">
-          <ul className="flex flex-col lg:flex-row lg:space-x-6">
-            <li>
-              <Link
-                href="/"
-                className="block py-4 px-6 text-white hover:text-gray-300 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/about"
-                className="block py-4 px-6 text-white hover:text-gray-300 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </Link>
-            </li>
-          </ul>
-        </nav>
+        {/* Location Selector */}
+        <div className="hidden md:flex items-center text-sm">
+          <button className="flex items-center text-gray-700 hover:text-gray-900">
+            <span className="mr-1">Select Location</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Search Bar - Center */}
+      <div className="hidden md:block flex-grow max-w-xl mx-4">
+        <form onSubmit={handleSearch} className="relative">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder='Search for "Rice"'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-400"
+            />
+          </div>
+        </form>
+      </div>
+
+      {/* Right Side Navigation */}
+      <div className="flex items-center space-x-6">
+        {/* Login Button */}
+        <Link 
+          href="/login" 
+          className="hidden md:block text-gray-800 hover:text-gray-600 font-medium"
+        >
+          Login
+        </Link>
+        
+        {/* Cart Button */}
+        <Link 
+          href="/cart" 
+          className="text-gray-800 hover:text-gray-600 font-medium"
+        >
+          Cart
+        </Link>
+      </div>
+
+      {/* Mobile Search - Only visible on mobile */}
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white p-4 shadow-lg">
+        <form onSubmit={handleSearch} className="relative">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-md focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2"
+          >
+            <Search size={18} className="text-gray-500" />
+          </button>
+        </form>
       </div>
     </header>
   );

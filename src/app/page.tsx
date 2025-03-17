@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from "react";
-import HeroSection from "@/components/home/HeroSection";
+import HeroSection from "@/components/home/Banner";
 import GrowthDrivers from "@/components/home/GrowthDrivers";
 import RetailTransformation from "@/components/home/RetailTransformation";
 import EmpoweringCommunities from "@/components/home/EmpoweringCommunities";
