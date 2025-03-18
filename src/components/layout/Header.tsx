@@ -160,6 +160,16 @@ const Header: React.FC = () => {
             <span>Login</span>
           </Link>
           
+          {/* Profile Button - Desktop */}
+          <Link 
+            href="/profile" 
+            className="hidden md:flex items-center text-gray-800 hover:text-gray-600 font-medium"
+            aria-label="Profile"
+          >
+            <User size={18} className="mr-1" />
+            <span>Profile</span>
+          </Link>
+          
           {/* Cart Button with counter */}
           <Link 
             href="/cart" 
@@ -206,6 +216,13 @@ const Header: React.FC = () => {
                 className="text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100"
               >
                 Login
+              </Link>
+              <Link 
+                href="/profile" 
+                className="text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100"
+              >
+                <User size={18} className="inline mr-2" />
+                Profile
               </Link>
             </nav>
             
