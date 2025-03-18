@@ -41,7 +41,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, items, removeItem, updateQ
                 <div className="w-24 h-24 bg-gray-200 rounded mb-4"></div>
                 <p className="text-gray-800 font-medium mb-4">Your cart is empty</p>
                 <Link 
-                  href="/products" 
+                  href="/ " 
                   className="bg-gray-700 text-white py-2 px-4 rounded text-sm hover:bg-gray-800 transition w-full text-center"
                   onClick={onClose}
                 >
