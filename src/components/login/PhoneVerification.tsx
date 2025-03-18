@@ -27,18 +27,14 @@ const PhoneVerification = ({ onSubmit }: PhoneVerificationProps) => {
       <div className="flex flex-col items-center mb-6">
         <div className="w-32 h-12 relative mb-2">
           <Image 
-            src="/images/minutos-logo.png" 
+            src="/images/minitos.png" 
             alt="Minutos Logo"
             layout="fill"
             objectFit="contain"
             className="w-full h-auto"
           />
         </div>
-        <h2 className="text-xl font-semibold text-center">
-          <span className="text-gray-900">Minut</span>
-          <span className="text-red-500">o</span>
-          <span className="text-gray-900">s</span>
-        </h2>
+      
         <p className="text-red-500 text-sm mt-1">Your Local Delivery partner</p>
       </div>
 
