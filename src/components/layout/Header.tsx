@@ -5,6 +5,7 @@ import { Search, ShoppingCart, MapPin, Menu, X, User } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import LoginModal from "@/components/login/LoginModal";
 
 // Define types for state management
 type LocationType = {
@@ -20,6 +21,7 @@ const Header: React.FC = () => {
   const [cartItems, setCartItems] = useState<number>(0);
   const [currentLocation, setCurrentLocation] = useState<LocationType>({ name: "Select Location", id: "" });
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   
   const pathname = usePathname();
 
@@ -72,6 +74,14 @@ const Header: React.FC = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const openLoginModal = () => {
+    setIsLoginModalOpen(true);
+    // Close mobile menu if it's open
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
   };
 
   return (
@@ -151,14 +161,14 @@ const Header: React.FC = () => {
         {/* Right Side Navigation */}
         <div className="flex items-center space-x-3 sm:space-x-6">
           {/* Login Button - Desktop */}
-          <Link 
-            href="/login" 
+          <button 
+            onClick={openLoginModal}
             className="hidden md:flex items-center text-gray-800 hover:text-gray-600 font-medium"
             aria-label="Login"
           >
             <User size={18} className="mr-1" />
             <span>Login</span>
-          </Link>
+          </button>
           
           {/* Profile Button - Desktop */}
           <Link 
@@ -211,12 +221,12 @@ const Header: React.FC = () => {
               >
                 Deals
               </Link>
-              <Link 
-                href="/login" 
-                className="text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100"
+              <button 
+                onClick={openLoginModal}
+                className="text-left text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100 w-full"
               >
                 Login
-              </Link>
+              </button>
               <Link 
                 href="/profile" 
                 className="text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100"
@@ -270,6 +280,12 @@ const Header: React.FC = () => {
           </button>
         </form>
       </div>
+
+      {/* Login Modal */}
+      <LoginModal 
+        isOpen={isLoginModalOpen} 
+        onClose={() => setIsLoginModalOpen(false)} 
+      />
     </>
   );
 };

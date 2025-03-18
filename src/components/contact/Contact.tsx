@@ -107,7 +107,7 @@ const Contact: React.FC = () => {
             <div>
               <button 
                 type="submit" 
-                className="w-full bg-red-600 hover:bg-green-700 text-white py-3 px-6 rounded-md flex items-center justify-center gap-2 transition-colors duration-200"
+                className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-md flex items-center justify-center gap-2 transition-colors duration-200"
               >
                 Send message
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
