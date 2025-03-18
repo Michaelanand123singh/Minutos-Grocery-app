@@ -105,10 +105,11 @@ const Header: React.FC = () => {
             )}
           </button>
           
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="text-xl font-bold text-gray-800">Minutos</span>
+          <Link href="/" className="flex items-center space-x-5">
+          <Image src="/images/logo1.jpg" alt="Minutos Logo" width={100} height={100} />
+      
           </Link>
+          
         </div>
         
         {/* Location Selector - Desktop */}
