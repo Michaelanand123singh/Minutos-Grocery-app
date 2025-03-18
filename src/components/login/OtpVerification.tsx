@@ -64,7 +64,10 @@ const OtpVerification = ({ phoneNumber, onSubmit, onResend, onBack }: OtpVerific
       
       // Move focus to next input
       if (value && index < 5 && inputRefs.current[index + 1]) {
-        inputRefs.current[index + 1].focus();
+        const nextInput = inputRefs.current[index + 1];
+        if (nextInput) {
+          nextInput.focus();
+        }
       }
     }
     
@@ -73,14 +76,23 @@ const OtpVerification = ({ phoneNumber, onSubmit, onResend, onBack }: OtpVerific
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Backspace') {
-      if (!otp[index] && index > 0 && inputRefs.current[index - 1]) {
+      if (!otp[index] && index > 0) {
         // If current input is empty and backspace is pressed, move to previous input
-        inputRefs.current[index - 1].focus();
+        const prevInput = inputRefs.current[index - 1];
+        if (prevInput) {
+          prevInput.focus();
+        }
       }
     } else if (e.key === 'ArrowLeft' && index > 0) {
-      inputRefs.current[index - 1]?.focus();
+      const prevInput = inputRefs.current[index - 1];
+      if (prevInput) {
+        prevInput.focus();
+      }
     } else if (e.key === 'ArrowRight' && index < 5) {
-      inputRefs.current[index + 1]?.focus();
+      const nextInput = inputRefs.current[index + 1];
+      if (nextInput) {
+        nextInput.focus();
+      }
     }
   };
 
@@ -99,7 +111,10 @@ const OtpVerification = ({ phoneNumber, onSubmit, onResend, onBack }: OtpVerific
     setTimeLeft(19);
     setIsExpired(false);
     setOtp(Array(6).fill(''));
-    inputRefs.current[0]?.focus();
+    const firstInput = inputRefs.current[0];
+    if (firstInput) {
+      firstInput.focus();
+    }
     onResend();
   };
 
