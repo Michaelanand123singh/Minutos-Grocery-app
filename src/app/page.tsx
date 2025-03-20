@@ -1,8 +1,11 @@
+// app/page.tsx
 "use client";
 
 import React from 'react';
 import Banner from '@/components/home/Banner';
 import CategorySection from '@/components/home/CategorySection';
+import FeaturedCategories from '@/components/home/FeaturedCategories';
+import { featuredCategories } from '@/components/data/featuredCategoriesData';
 import { groceryKitchenItems } from '@/components/data/groceryKitchenData';
 import { snacksDrinksItems } from '@/components/data/snacksDrinksData';
 import { beautyPersonalCareItems } from '@/components/data/beautyPersonalCareData';
@@ -13,9 +16,14 @@ import { mobileAccessoriesItems } from '@/components/data/mobileAccessoriesData'
 export default function Home() {
   return (
     <main className="container mx-auto px-4 pt-20 pb-8">
+      
       {/* First Banner */}
       <Banner id="banner-1" />
       
+      {/* Featured Categories */}
+      <FeaturedCategories categories={featuredCategories} />
+
+
       {/* Grocery & Kitchen Section */}
       <CategorySection 
         title="Grocery & Kitchen" 
