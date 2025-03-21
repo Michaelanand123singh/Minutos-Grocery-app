@@ -2,37 +2,37 @@ export const mobileAccessoriesItems = [
     {
       id: "adopters",
       title: "Adopters",
-      image: "/images/categories/adopters.jpg",
+      image: "/images/mobile/mobile.png",
       link: "/category/adopters"
     },
     {
       id: "pouches",
       title: "Pouches",
-      image: "/images/categories/pouches.jpg",
+      image: "/images/mobile/mobile.png",
       link: "/category/pouches"
     },
     {
       id: "cables",
       title: "Cables",
-      image: "/images/categories/cables.jpg",
+      image: "/images/mobile/mobile.png",
       link: "/category/cables"
     },
     {
       id: "power-banks",
       title: "Power Banks",
-      image: "/images/categories/power-banks.jpg",
+      image: "/images/mobile/mobile.png",
       link: "/category/power-banks"
     },
     {
       id: "stands",
       title: "Stands",
-      image: "/images/categories/stands.jpg",
+      image: "/images/mobile/mobile.png",
       link: "/category/stands"
     },
     {
       id: "other-accessories",
       title: "Other Accessories",
-      image: "/images/categories/other-accessories.jpg",
+      image: "/images/mobile/mobile.png",
       link: "/category/other-accessories"
     }
   ];

@@ -18,6 +18,7 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [cartItems, setCartItems] = useState<number>(0);
   const [currentLocation, setCurrentLocation] = useState<LocationType>({ name: "Select Location", id: "" });
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
@@ -55,6 +56,7 @@ const Header: React.FC = () => {
   // Close mobile menu when navigating to a new page
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setShowMobileSearch(false);
   }, [pathname]);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -63,6 +65,7 @@ const Header: React.FC = () => {
     console.log("Searching for:", searchQuery);
     // Could redirect to search results page
     // router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+    setShowMobileSearch(false);
   };
 
   const selectLocation = (location: LocationType) => {
@@ -74,6 +77,12 @@ const Header: React.FC = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (showMobileSearch) setShowMobileSearch(false);
+  };
+
+  const toggleMobileSearch = () => {
+    setShowMobileSearch(!showMobileSearch);
+    if (isMobileMenuOpen) setIsMobileMenuOpen(false);
   };
 
   const openLoginModal = () => {
@@ -87,120 +96,153 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full px-4 sm:px-6 py-3 flex justify-between items-center z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 w-full px-4 sm:px-6 py-3 z-50 transition-all duration-300 ${
           isScrolled ? "bg-white shadow-md" : "bg-white"
         }`}
       >
-        <div className="flex items-center">
-          {/* Mobile menu button */}
-          <button 
-            className="mr-2 md:hidden" 
-            onClick={toggleMobileMenu}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <X size={24} className="text-gray-800" />
-            ) : (
-              <Menu size={24} className="text-gray-800" />
+        <div className="flex justify-between items-center">
+          <div className="flex items-center">
+            {/* Mobile menu button */}
+            <button 
+              className="mr-2 md:hidden" 
+              onClick={toggleMobileMenu}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <X size={24} className="text-gray-800" />
+              ) : (
+                <Menu size={24} className="text-gray-800" />
+              )}
+            </button>
+            
+            <Link href="/" className="flex items-center space-x-5">
+              <Image src="/images/logo1.jpg" alt="Minutos Logo" width={100} height={100} />
+            </Link>
+          </div>
+          
+          {/* Location Selector - Desktop */}
+          <div className="hidden md:flex relative ml-6">
+            <button 
+              className="flex items-center text-gray-700 hover:text-gray-900"
+              onClick={() => setShowLocationDropdown(!showLocationDropdown)}
+            >
+              <MapPin size={16} className="mr-1" />
+              <span className="text-sm">{currentLocation.name}</span>
+            </button>
+            
+            {/* Location dropdown */}
+            {showLocationDropdown && (
+              <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-md py-2 w-48 z-50">
+                {locations.map((location) => (
+                  <button
+                    key={location.id}
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => selectLocation(location)}
+                  >
+                    {location.name}
+                  </button>
+                ))}
+              </div>
             )}
-          </button>
-          
-          <Link href="/" className="flex items-center space-x-5">
-          <Image src="/images/logo1.jpg" alt="Minutos Logo" width={100} height={100} />
-      
-          </Link>
-          
+          </div>
+
+          {/* Search Bar - Desktop */}
+          <div className="hidden md:block flex-grow max-w-xl mx-4">
+            <form onSubmit={handleSearch} className="relative">
+              <input
+                type="text"
+                placeholder='Search for "Rice"'
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-400"
+                aria-label="Search products"
+              />
+              <button
+                type="submit"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                aria-label="Submit search"
+              >
+                <Search size={18} className="text-gray-500" />
+              </button>
+            </form>
+          </div>
+
+          {/* Right Side Navigation */}
+          <div className="flex items-center space-x-3 sm:space-x-6">
+            {/* Mobile Search Toggle Button */}
+            <button 
+              className="md:hidden text-gray-800" 
+              onClick={toggleMobileSearch}
+              aria-label="Toggle search"
+            >
+              <Search size={20} />
+            </button>
+            
+            {/* Login Button - Desktop */}
+            <button 
+              onClick={openLoginModal}
+              className="hidden md:flex items-center text-gray-800 hover:text-gray-600 font-medium"
+              aria-label="Login"
+            >
+              <User size={18} className="mr-1" />
+              <span>Login</span>
+            </button>
+            
+            {/* Profile Button - Desktop */}
+            <Link 
+              href="/profile" 
+              className="hidden md:flex items-center text-gray-800 hover:text-gray-600 font-medium"
+              aria-label="Profile"
+            >
+              <User size={18} className="mr-1" />
+              <span>Profile</span>
+            </Link>
+            
+            {/* Cart Button with counter */}
+            <Link 
+              href="/cart" 
+              className="relative flex items-center text-gray-800 hover:text-gray-600 font-medium"
+              aria-label="Shopping cart"
+            >
+              <ShoppingCart size={20} />
+              {cartItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartItems}
+                </span>
+              )}
+              <span className="hidden sm:inline ml-1">Cart</span>
+            </Link>
+          </div>
         </div>
         
-        {/* Location Selector - Desktop */}
-        <div className="hidden md:flex relative ml-6">
-          <button 
-            className="flex items-center text-gray-700 hover:text-gray-900"
-            onClick={() => setShowLocationDropdown(!showLocationDropdown)}
-          >
-            <MapPin size={16} className="mr-1" />
-            <span className="text-sm">{currentLocation.name}</span>
-          </button>
-          
-          {/* Location dropdown */}
-          {showLocationDropdown && (
-            <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-md py-2 w-48 z-50">
-              {locations.map((location) => (
-                <button
-                  key={location.id}
-                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  onClick={() => selectLocation(location)}
-                >
-                  {location.name}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Search Bar - Center (Desktop) */}
-        <div className="hidden md:block flex-grow max-w-xl mx-4">
-          <form onSubmit={handleSearch} className="relative">
-            <input
-              type="text"
-              placeholder='Search for "Rice"'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-400"
-              aria-label="Search products"
-            />
-            <button
-              type="submit"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2"
-              aria-label="Submit search"
-            >
-              <Search size={18} className="text-gray-500" />
-            </button>
-          </form>
-        </div>
-
-        {/* Right Side Navigation */}
-        <div className="flex items-center space-x-3 sm:space-x-6">
-          {/* Login Button - Desktop */}
-          <button 
-            onClick={openLoginModal}
-            className="hidden md:flex items-center text-gray-800 hover:text-gray-600 font-medium"
-            aria-label="Login"
-          >
-            <User size={18} className="mr-1" />
-            <span>Login</span>
-          </button>
-          
-          {/* Profile Button - Desktop */}
-          <Link 
-            href="/profile" 
-            className="hidden md:flex items-center text-gray-800 hover:text-gray-600 font-medium"
-            aria-label="Profile"
-          >
-            <User size={18} className="mr-1" />
-            <span>Profile</span>
-          </Link>
-          
-          {/* Cart Button with counter */}
-          <Link 
-            href="/cart" 
-            className="relative flex items-center text-gray-800 hover:text-gray-600 font-medium"
-            aria-label="Shopping cart"
-          >
-            <ShoppingCart size={20} />
-            {cartItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {cartItems}
-              </span>
-            )}
-            <span className="hidden sm:inline ml-1">Cart</span>
-          </Link>
-        </div>
+        {/* Mobile Search Bar - Expandable in Navbar */}
+        {showMobileSearch && (
+          <div className="md:hidden mt-3 pb-2">
+            <form onSubmit={handleSearch} className="relative">
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-md focus:outline-none"
+                aria-label="Search products"
+                autoFocus
+              />
+              <button
+                type="submit"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                aria-label="Submit search"
+              >
+                <Search size={18} className="text-gray-500" />
+              </button>
+            </form>
+          </div>
+        )}
       </header>
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-white z-40 pt-16 pb-20">
+        <div className="fixed inset-0 bg-white z-40 pt-16 pb-6">
           <div className="container mx-auto px-4 py-6">
             {/* Mobile Navigation Links */}
             <nav className="flex flex-col space-y-4">
@@ -211,10 +253,10 @@ const Header: React.FC = () => {
                 Home
               </Link>
               <Link 
-                href="/categories" 
+                href="/category" 
                 className="text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100"
               >
-                Categories
+                Category
               </Link>
               <Link 
                 href="/deals" 
@@ -260,27 +302,6 @@ const Header: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* Mobile Search Bar - Fixed at bottom */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white p-3 shadow-lg z-30">
-        <form onSubmit={handleSearch} className="relative">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-md focus:outline-none"
-            aria-label="Search products"
-          />
-          <button
-            type="submit"
-            className="absolute right-3 top-1/2 transform -translate-y-1/2"
-            aria-label="Submit search"
-          >
-            <Search size={18} className="text-gray-500" />
-          </button>
-        </form>
-      </div>
 
       {/* Login Modal */}
       <LoginModal 

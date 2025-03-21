@@ -2,37 +2,37 @@ export const lifestyleItems = [
     {
       id: "fragrances-grooming",
       title: "Fragrances & Grooming",
-      image: "/images/categories/fragrances-grooming.jpg",
+      image: "/images/beauty/beauty.png",
       link: "/category/fragrances-grooming"
     },
     {
       id: "feminine-hygiene",
       title: "Feminine Hygiene",
-      image: "/images/categories/feminine-hygiene.jpg",
+      image: "/images/beauty/beauty.png",
       link: "/category/feminine-hygiene"
     },
     {
       id: "sexual-wellness",
       title: "Sexual Wellness",
-      image: "/images/categories/sexual-wellness.jpg",
+      image: "/images/beauty/beauty.png",
       link: "/category/sexual-wellness"
     },
     {
       id: "ladies-inners",
       title: "Ladies Inners",
-      image: "/images/categories/ladies-inners.jpg",
+      image: "/images/beauty/beauty.png",
       link: "/category/ladies-inners"
     },
     {
       id: "footwear",
       title: "Footwear",
-      image: "/images/categories/footwear.jpg",
+      image: "/images/beauty/beauty.png",
       link: "/category/footwear"
     },
     {
       id: "sportswear",
       title: "Sportswear",
-      image: "/images/categories/sportswear.jpg",
+      image: "/images/beauty/beauty.png",
       link: "/category/sportswear"
     }
   ];

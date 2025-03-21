@@ -31,7 +31,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({ title, items }) => {
           <Link key={item.id} href={item.link} className="flex flex-col items-center">
             <div className="bg-gray-200 w-full aspect-square rounded-lg mb-2 flex items-center justify-center">
               {/* Placeholder for actual images */}
-              {/* <Image src={item.image} alt={item.title} width={100} height={100} /> */}
+              <Image src={item.image} alt={item.title} width={100} height={100} />
             </div>
             <span className="text-xs text-center font-medium">{item.title}</span>
           </Link>

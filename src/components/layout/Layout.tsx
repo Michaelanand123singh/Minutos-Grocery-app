@@ -9,17 +9,17 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
   return (
-    <div className="flex flex-col min-h-screen overflow-x-hidden">
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow bg-kirana-green-light bg-opacity-30 py-10 overflow-x-hidden">
+      <main className="flex-grow bg-kirana-green-light bg-opacity-30 py-8">
         {fullWidth ? (
-          // Full width content without horizontal constraints
-          <div className="w-full overflow-x-hidden">
+          // Full width content with more compressed margins
+          <div className="w-full max-w-screen-xl mx-auto px-8 sm:px-12 lg:px-16">
             {children}
           </div>
         ) : (
-          // Regular content with horizontal padding and max width
-          <div className="max-w-screen-xl mx-auto px-4 overflow-x-hidden">
+          // Regular content with more compressed margins
+          <div className="max-w-screen-lg mx-auto px-8 sm:px-12 lg:px-16">
             {children}
           </div>
         )}

@@ -16,13 +16,13 @@ import { mobileAccessoriesItems } from '@/components/data/mobileAccessoriesData'
 export default function Home() {
   return (
     <main className="container mx-auto px-4 pt-20 pb-8">
-      
-      {/* First Banner */}
-      <Banner id="banner-1" />
+    
       
       {/* Featured Categories */}
       <FeaturedCategories categories={featuredCategories} />
 
+      {/* First Banner */}
+      <Banner id="banner-1" />
 
       {/* Grocery & Kitchen Section */}
       <CategorySection 
