@@ -34,5 +34,35 @@ export const beautyPersonalCareItems = [
       title: "Wellness",
       image: "/images/beauty/beauty.png",
       link: "/category/wellness"
+    },
+    {
+      id: "wellness",
+      title: "Wellness",
+      image: "/images/beauty/beauty.png",
+      link: "/category/wellness"
+    },
+    {
+      id: "wellness",
+      title: "Wellness",
+      image: "/images/beauty/beauty.png",
+      link: "/category/wellness"
+    },
+    {
+      id: "wellness",
+      title: "Wellness",
+      image: "/images/beauty/beauty.png",
+      link: "/category/wellness"
+    },
+    {
+      id: "wellness",
+      title: "Wellness",
+      image: "/images/beauty/beauty.png",
+      link: "/category/wellness"
+    },
+    {
+      id: "wellness",
+      title: "Wellness",
+      image: "/images/beauty/beauty.png",
+      link: "/category/wellness"
     }
   ];

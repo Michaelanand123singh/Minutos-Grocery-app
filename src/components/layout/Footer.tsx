@@ -1,7 +1,7 @@
+// components/Footer.tsx
 "use client"
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const Footer: React.FC = () => {
@@ -75,16 +75,19 @@ const Footer: React.FC = () => {
             <Link href="/privacy-policy" className="hover:text-red-500 transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-red-500 transition-colors">
+            <Link href="/terms&conditions" className="hover:text-red-500 transition-colors">
               Terms and Conditions
             </Link>
-            <Link href="/refund-policy" className="hover:text-red-500 transition-colors">
-              Pricing, Return & Refund Policy
+            <Link href="/pricing" className="hover:text-red-500 transition-colors">
+              Pricing
             </Link>
-            <Link href="/faqs" className="hover:text-red-500 transition-colors">
+            <Link href="/return-and-refund-policy" className="hover:text-red-500 transition-colors">
+              Return & Refund Policy
+            </Link>
+            <Link href="/faq" className="hover:text-red-500 transition-colors">
               FAQs
             </Link>
-            <Link href="/disclaimer" className="hover:text-red-500 transition-colors">
+            <Link href="/policy/disclaimers" className="hover:text-red-500 transition-colors">
               Disclaimer
             </Link>
             <Link href="/feedback" className="hover:text-red-500 transition-colors">

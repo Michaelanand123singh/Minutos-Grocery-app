@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Search, ShoppingCart, MapPin, Menu, X, User } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import LoginModal from "@/components/login/LoginModal";
 
 // Define types for state management
@@ -25,6 +25,7 @@ const Header: React.FC = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   
   const pathname = usePathname();
+  const router = useRouter();
 
   // Sample locations - in a real app, these would come from an API or context
   const locations = [
@@ -61,11 +62,24 @@ const Header: React.FC = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you'd implement search functionality here
-    console.log("Searching for:", searchQuery);
-    // Could redirect to search results page
-    // router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
-    setShowMobileSearch(false);
+    
+    // Trim and validate search query
+    const trimmedQuery = searchQuery.trim();
+    
+    if (trimmedQuery) {
+      // Redirect to search page with query parameter
+      router.push(`/search-page?query=${encodeURIComponent(trimmedQuery)}`);
+      
+      // Close mobile search if open
+      setShowMobileSearch(false);
+      
+      // Optional: Store recent searches (you could implement this with localStorage)
+      const recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+      if (!recentSearches.includes(trimmedQuery)) {
+        const updatedSearches = [trimmedQuery, ...recentSearches].slice(0, 5);
+        localStorage.setItem('recentSearches', JSON.stringify(updatedSearches));
+      }
+    }
   };
 
   const selectLocation = (location: LocationType) => {
@@ -167,6 +181,7 @@ const Header: React.FC = () => {
             </form>
           </div>
 
+          {/* Rest of the code remains the same as in the original implementation */}
           {/* Right Side Navigation */}
           <div className="flex items-center space-x-3 sm:space-x-6">
             {/* Mobile Search Toggle Button */}
@@ -240,6 +255,7 @@ const Header: React.FC = () => {
         )}
       </header>
 
+      {/* Rest of the component remains the same */}
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 bg-white z-40 pt-16 pb-6">

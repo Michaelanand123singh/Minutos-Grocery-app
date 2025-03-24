@@ -1,14 +1,26 @@
 // app/category/page.tsx
-"use client";
-
 import React from 'react';
-import Category from '@/components/category/CategoryPage';
+import CategoryPage from '@/components/category/CategoryPage';
 import { featuredCategories } from '@/components/data/featuredCategoriesData';
+import { getSubcategoriesForCategory } from '@/components/data/subcategoriesData';
 
-export default function CategoryPageContainer() {
-  return (
-    <main className="container mx-auto px-4 pt-20 pb-8">
-      <Category categories={featuredCategories} />
-    </main>
-  );
+
+export default function CategoryDetailPage({ 
+  params 
+}: { 
+  params: { categorySlug: string } 
+}) {
+  const category = featuredCategories.find(cat => cat.slug === params.categorySlug);
+
+  if (!category) {
+    return <div>Category not found</div>;
+  }
+
+  const enrichedCategory = {
+    ...category,
+    subcategories: getSubcategoriesForCategory(category.slug),
+    description: `Explore our wide range of ${category.name}`
+  };
+
+  return <CategoryPage categories={[enrichedCategory]} />;
 }

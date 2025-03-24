@@ -1,4 +1,4 @@
-// components/home/FeaturedCategories.tsx
+// components/FeaturedCategories.tsx
 "use client";
 
 import React from 'react';
@@ -20,12 +20,16 @@ interface FeaturedCategoriesProps {
 const FeaturedCategories: React.FC<FeaturedCategoriesProps> = ({ categories }) => {
   return (
     <div className="my-8">
-      
-      <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-8 gap-4">
+      {/* Grid layout for categories */}
+      <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-4">
         {categories.map((category) => (
-          <Link href={`/category/${category.slug}`} key={category.id}>
-            <div className="flex flex-col items-center bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-all duration-300">
-            <div className="w-16 h-16 md:w-20 md:h-20 relative mb-3">
+          <Link 
+            key={category.id} 
+            href={`/categories/${category.slug}`}
+            className="flex justify-center"
+          >
+            <div className="flex flex-col items-center bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-all duration-300 w-full max-w-[120px] hover:scale-105">
+              <div className="w-16 h-16 md:w-20 md:h-20 relative mb-3">
                 <Image
                   src={category.imageUrl}
                   alt={category.name}
@@ -34,7 +38,7 @@ const FeaturedCategories: React.FC<FeaturedCategoriesProps> = ({ categories }) =
                   className="object-contain"
                 />
               </div>
-              <h3 className="text-center text-sm font-medium text-gray-800">
+              <h3 className="text-center text-sm font-medium text-gray-800 truncate w-full">
                 {category.name}
               </h3>
             </div>
