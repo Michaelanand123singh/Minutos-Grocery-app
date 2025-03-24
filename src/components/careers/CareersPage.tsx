@@ -1,4 +1,3 @@
-// components/careers/CareersPage.tsx
 'use client'
 
 import React, { useState } from 'react'
@@ -54,7 +53,8 @@ const CareersPage: React.FC = () => {
     }
   ]
 
-  const departments = ['All', ...new Set(jobOpenings.map(job => job.department))]
+  // Convert Set to array using Array.from()
+  const departments = ['All', ...Array.from(new Set(jobOpenings.map(job => job.department)))]
 
   const filteredJobs = jobOpenings.filter(job => 
     (selectedDepartment === 'All' || job.department === selectedDepartment) &&
