@@ -136,38 +136,38 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categories }) => {
 
                 {/* Categories in the selected group */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {groupedCategories[selectedGroup].map(category => (
-                    <div 
-                      key={category.id}
-                      onClick={() => setActiveCategory(category)}
-                      className={`bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg ${
-                        activeCategory?.id === category.id 
-                          ? 'border-2 border-green-500 scale-105' 
-                          : 'hover:scale-105'
-                      }`}
-                    >
-                      <div className="p-4 flex items-center">
-                        <div className="w-16 h-16 mr-4 flex-shrink-0">
-                          <Image 
-                            src={category.imageUrl} 
-                            alt={category.name}
-                            width={64}
-                            height={64}
-                            className="object-contain"
-                          />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-lg">{category.name}</h3>
-                          <p className="text-gray-500 text-sm">
-                            {category.subcategories ? 
-                              `${category.subcategories.length} Subcategories` : 
-                              'No subcategories'
-                            }
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                {groupedCategories[selectedGroup].map(category => (
+  <Link key={category.id} href={`/category/${category.slug}`}>
+    <div 
+      className={`bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg ${
+        activeCategory?.id === category.id 
+          ? 'border-2 border-green-500 scale-105' 
+          : 'hover:scale-105'
+      }`}
+    >
+      <div className="p-4 flex items-center">
+        <div className="w-16 h-16 mr-4 flex-shrink-0">
+          <Image 
+            src={category.imageUrl} 
+            alt={category.name}
+            width={64}
+            height={64}
+            className="object-contain"
+          />
+        </div>
+        <div>
+          <h3 className="font-semibold text-lg">{category.name}</h3>
+          <p className="text-gray-500 text-sm">
+            {category.subcategories ? 
+              `${category.subcategories.length} Subcategories` : 
+              'No subcategories'
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  </Link>
+))}
                 </div>
 
                 {/* Detailed View for Active Category */}
