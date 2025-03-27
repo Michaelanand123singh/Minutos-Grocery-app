@@ -1,7 +1,16 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Search, ShoppingCart, MapPin, Menu, X, User } from "lucide-react";
+import { 
+  Search, 
+  ShoppingCart, 
+  Home, 
+  Category, 
+  Utensils, 
+  Menu, 
+  MapPin, 
+  User 
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -109,24 +118,100 @@ const Header: React.FC = () => {
 
   return (
     <>
+      {/* Mobile View */}
+      <div className="block md:hidden fixed inset-x-0 z-50">
+        {/* Top Search Bar & Logo */}
+        <div className="bg-white p-4 shadow-sm">
+          <div className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-5">
+              <Image 
+                src="/images/logo1.jpg" 
+                alt="Minutos Logo" 
+                width={80} 
+                height={40} 
+                className="mr-2" 
+              />
+            </Link>
+            <form onSubmit={handleSearch} className="flex-grow">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search for 'chocolate box'"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-md focus:outline-none"
+                  aria-label="Search products"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                  aria-label="Submit search"
+                >
+                  <Search size={18} className="text-gray-500" />
+                </button>
+              </div>
+            </form>
+          </div>
+
+          Category Quick Links
+          <div className="mt-4 flex space-x-3 overflow-x-auto pb-2 scrollbar-hide">
+            {/* {["All", "Cafe", "Electronics", "Pharmacy", "School"].map((category) => (
+              <div key={category} className="flex flex-col items-center min-w-[70px]">
+                <div className="bg-purple-100 p-3 rounded-full">
+                  <Image 
+                    src="/api/placeholder/40/40" 
+                    alt={category} 
+                    width={40} 
+                    height={40} 
+                  />
+                </div>
+                <span className="text-xs mt-1">{category}</span>
+              </div>
+            ))} */}
+          </div>
+        </div>
+
+        {/* Bottom Navigation */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-2">
+          <div className="flex justify-around items-center">
+            {[
+              { href: "/", icon: <Home size={20} />, label: "Home" },
+              { href: "/categories", icon:<Utensils size={20} />, label: "Categories" },
+              { href: "/cart", icon: <Utensils size={20} />, label: "Cart" },
+              { href: "/profile", icon: <ShoppingCart size={20} />, label: "Profile", showCounter: true }
+            ].map(({ href, icon, label, showCounter }) => (
+              <Link 
+                key={href}
+                href={href} 
+                className="flex flex-col items-center text-xs text-gray-600 relative"
+              >
+                {icon}
+                {showCounter && cartItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                    {cartItems}
+                  </span>
+                )}
+                <span>{label}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Header */}
       <header
-        className={`fixed top-0 left-0 w-full px-4 sm:px-6 py-3 z-50 transition-all duration-300 ${
+        className={`hidden md:block fixed top-0 left-0 w-full px-4 sm:px-6 py-3 z-50 transition-all duration-300 ${
           isScrolled ? "bg-white shadow-md" : "bg-white"
         }`}
       >
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            {/* Mobile menu button */}
             <button 
               className="mr-2 md:hidden" 
               onClick={toggleMobileMenu}
               aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? (
-                <X size={24} className="text-gray-800" />
-              ) : (
-                <Menu size={24} className="text-gray-800" />
-              )}
+              <Menu size={24} className="text-gray-800" />
             </button>
             
             <Link href="/" className="flex items-center space-x-5">
@@ -181,7 +266,6 @@ const Header: React.FC = () => {
             </form>
           </div>
 
-          {/* Rest of the code remains the same as in the original implementation */}
           {/* Right Side Navigation */}
           <div className="flex items-center space-x-3 sm:space-x-6">
             {/* Mobile Search Toggle Button */}
@@ -255,66 +339,13 @@ const Header: React.FC = () => {
         )}
       </header>
 
-      {/* Rest of the component remains the same */}
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 bg-white z-40 pt-16 pb-6">
-          <div className="container mx-auto px-4 py-6">
-            {/* Mobile Navigation Links */}
-            <nav className="flex flex-col space-y-4">
-              <Link 
-                href="/" 
-                className="text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100"
-              >
-                Home
-              </Link>
-              <Link 
-                href="/category" 
-                className="text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100"
-              >
-                Category
-              </Link>
-              <Link 
-                href="/deals" 
-                className="text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100"
-              >
-                Deals
-              </Link>
-              <button 
-                onClick={openLoginModal}
-                className="text-left text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100 w-full"
-              >
-                Login
-              </button>
-              <Link 
-                href="/profile" 
-                className="text-lg font-medium text-gray-800 hover:text-gray-600 py-2 border-b border-gray-100"
-              >
-                <User size={18} className="inline mr-2" />
-                Profile
-              </Link>
-            </nav>
-            
-            {/* Mobile Location Selector */}
-            <div className="mt-6">
-              <p className="text-sm font-medium text-gray-500 mb-2">Select Location</p>
-              <div className="flex flex-col space-y-2">
-                {locations.map((location) => (
-                  <button
-                    key={location.id}
-                    className={`text-left px-3 py-2 rounded-md ${
-                      currentLocation.id === location.id 
-                        ? "bg-gray-100 text-gray-900" 
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                    onClick={() => selectLocation(location)}
-                  >
-                    <MapPin size={16} className="inline mr-2" />
-                    {location.name}
-                  </button>
-                ))}
-              </div>
-            </div>
+          {/* Placeholder for mobile menu content */}
+          <div className="p-4">
+            <h2 className="text-xl font-bold mb-4">Menu</h2>
+            {/* Add mobile menu items here */}
           </div>
         </div>
       )}
