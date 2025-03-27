@@ -65,9 +65,6 @@ export default function CartPage() {
 
   // Calculate total bill
   const itemsTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const deliveryCharge = cartItems.length > 0 ? cartItems[0].deliveryCharge : 0;
-  const handlingCharge = cartItems.length > 0 ? cartItems[0].handlingCharge : 0;
-  const grandTotal = itemsTotal + deliveryCharge + handlingCharge;
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
