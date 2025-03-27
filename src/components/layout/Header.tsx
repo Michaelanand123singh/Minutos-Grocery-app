@@ -5,7 +5,7 @@ import {
   Search, 
   ShoppingCart, 
   Home, 
-  Category, 
+  Grid,  // Replace Category with Grid
   Utensils, 
   Menu, 
   MapPin, 
@@ -176,7 +176,7 @@ const Header: React.FC = () => {
           <div className="flex justify-around items-center">
             {[
               { href: "/", icon: <Home size={20} />, label: "Home" },
-              { href: "/categories", icon:<Utensils size={20} />, label: "Categories" },
+              { href: "/categories", icon:<Grid size={20} />, label: "Categories" }
               { href: "/cart", icon: <Utensils size={20} />, label: "Cart" },
               { href: "/profile", icon: <ShoppingCart size={20} />, label: "Profile", showCounter: true }
             ].map(({ href, icon, label, showCounter }) => (
