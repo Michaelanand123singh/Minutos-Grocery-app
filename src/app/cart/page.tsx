@@ -1,42 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
 import Cart, { CartItem } from '@/components/cart/Cart';
 
 export default function CartPage() {
-  const [isCartOpen, setIsCartOpen] = useState<boolean>(true);
+  const [isCartOpen, setIsCartOpen] = useState(true);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const router = useRouter();
-
+  
   useEffect(() => {
     // Load cart items from localStorage
     const savedCart = localStorage.getItem('cartItems');
-
     if (savedCart) {
       try {
-        setCartItems(JSON.parse(savedCart) as CartItem[]);
+        setCartItems(JSON.parse(savedCart));
       } catch (error) {
-        console.error('Failed to parse cart items', error);
+        console.error("Failed to parse cart items", error);
         setCartItems([]);
       }
-    } else {
-      // Set dummy cart data if no cart data is found
-      const dummyData: CartItem[] = [
-        {
-          id: '1',
-          name: 'Amul Shakti Fresh Milk',
-          image: '/images/milk.png', // Update with actual image path
-          quantity: 1,
-          price: 30,
-          size: '500 ml',
-          deliveryTime: 'Delivery in 8 minutes',
-         
-        
-        },
-      ];
-      setCartItems(dummyData);
-      localStorage.setItem('cartItems', JSON.stringify(dummyData));
     }
   }, []);
 
@@ -46,36 +26,32 @@ export default function CartPage() {
 
   const closeCart = () => {
     setIsCartOpen(false);
-    router.push('/'); // Redirect to home page when cart is closed
+    // Redirect to home page when cart is closed
+    window.location.href = '/';
   };
 
   const removeItem = (id: string) => {
-    const updatedCart = cartItems.filter((item) => item.id !== id);
+    const updatedCart = cartItems.filter(item => item.id !== id);
     setCartItems(updatedCart);
     saveCartToStorage(updatedCart);
   };
 
   const updateQuantity = (id: string, quantity: number) => {
-    const updatedCart = cartItems.map((item) =>
+    const updatedCart = cartItems.map(item =>
       item.id === id ? { ...item, quantity } : item
     );
     setCartItems(updatedCart);
     saveCartToStorage(updatedCart);
   };
 
-  // Calculate total bill
-  const itemsTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <Cart
+    <div className="min-h-screen bg-gray-100">
+      <Cart 
         isOpen={isCartOpen}
         onClose={closeCart}
         items={cartItems}
         removeItem={removeItem}
         updateQuantity={updateQuantity}
-     
-        cancellationPolicy="Orders cannot be cancelled once packed for delivery. In case of unexpected delays, a refund will be provided, if applicable."
       />
     </div>
   );

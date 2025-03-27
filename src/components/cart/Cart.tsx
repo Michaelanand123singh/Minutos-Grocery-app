@@ -1,17 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
 export interface CartItem {
   id: string;
   name: string;
-  image: string;
-  quantity: number;
   price: number;
-  size?: string; // ✅ Add size
-  deliveryTime?: string; // ✅ Add deliveryTime
- 
+  quantity: number;
+  image: string;
 }
-
 
 interface CartProps {
   isOpen: boolean;
@@ -107,13 +104,19 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, items, removeItem, updateQ
                     <p>₹{calculateTotal().toFixed(2)}</p>
                   </div>
                   <div className="flex flex-col space-y-2">
-                   
                     <Link 
-                      href="/products" 
+                      href="/checkout" 
                       className="w-full bg-red-400 text-white py-3 px-4 rounded text-sm font-medium hover:bg-red-500 transition text-center"
                       onClick={onClose}
                     >
-                      Add Address to Proceed
+                      Checkout
+                    </Link>
+                    <Link 
+                      href="/products" 
+                      className="w-full bg-gray-100 text-gray-800 py-3 px-4 rounded text-sm font-medium hover:bg-gray-200 transition text-center"
+                      onClick={onClose}
+                    >
+                      Continue Shopping
                     </Link>
                   </div>
                 </div>
