@@ -1,14 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
 export interface CartItem {
   id: string;
   name: string;
-  price: number;
-  quantity: number;
   image: string;
+  quantity: number;
+  price: number;
+  size?: string; // ✅ Add size
+  deliveryTime?: string; // ✅ Add deliveryTime
+  shipmentDetails?: string; // ✅ Add shipmentDetails
+  deliveryCharge?: number; // ✅ Add deliveryCharge
+  handlingCharge?: number; // ✅ Add handlingCharge
 }
+
 
 interface CartProps {
   isOpen: boolean;
