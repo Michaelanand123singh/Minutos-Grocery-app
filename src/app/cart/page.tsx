@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Cart, { CartItem } from '@/components/cart/Cart';
+import Cart from '@/components/cart/Cart';
 
 export default function CartPage() {
   const [isCartOpen, setIsCartOpen] = useState<boolean>(true);
