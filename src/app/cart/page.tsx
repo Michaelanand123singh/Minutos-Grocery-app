@@ -80,12 +80,7 @@ export default function CartPage() {
         updateQuantity={updateQuantity}
         deliveryTime="Delivery in 8 minutes"
         shipmentDetails="Shipment of 1 item"
-        billDetails={{
-          itemsTotal,
-          deliveryCharge,
-          handlingCharge,
-          grandTotal,
-        }}
+        
         cancellationPolicy="Orders cannot be cancelled once packed for delivery. In case of unexpected delays, a refund will be provided, if applicable."
       />
     </div>

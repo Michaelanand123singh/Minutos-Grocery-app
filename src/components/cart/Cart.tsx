@@ -9,9 +9,7 @@ export interface CartItem {
   price: number;
   size?: string; // ✅ Add size
   deliveryTime?: string; // ✅ Add deliveryTime
-  shipmentDetails?: string; // ✅ Add shipmentDetails
-  deliveryCharge?: number; // ✅ Add deliveryCharge
-  handlingCharge?: number; // ✅ Add handlingCharge
+ 
 }
 
 
