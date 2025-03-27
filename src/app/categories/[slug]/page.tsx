@@ -2,7 +2,17 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, Filter } from "lucide-react";
 
-const products = [
+interface Product {
+  id: number;
+  name: string;
+  weight: string;
+  price: number;
+  originalPrice: number;
+  discount: number;
+  image: string;
+}
+
+const products: Product[] = [
   {
     id: 1,
     name: "Keshar Kali Wada Kolam Rice",
@@ -81,7 +91,7 @@ export default function RiceOilPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const renderProductCard = (product) => (
+  const renderProductCard = (product: Product) => (
     <div key={product.id} className="bg-white border rounded-lg p-3 flex flex-col justify-between">
       <div className="relative">
         <div className="absolute top-0 left-0 bg-purple-600 text-white px-2 py-0.5 rounded-full text-xs">
@@ -106,7 +116,7 @@ export default function RiceOilPage() {
   return (
     <div className="flex min-h-screen bg-gray-50 mt-36">
       {/* Sidebar */}
-      <aside className="w-20 md:w-64 bg-white border-r p-4 flex flex-col items-center md:items-start ">
+      <aside className="w-20 md:w-64 bg-white border-r p-4 flex flex-col items-center md:items-start">
         <h2 className="hidden md:block font-semibold text-lg mb-4">Categories</h2>
         {categories.map((category) => (
           <div
@@ -131,9 +141,6 @@ export default function RiceOilPage() {
             <Filter />
           </div>
         )}
-
-        {/* Banner */}
-
 
         {/* Product Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 p-4 mt-10">
