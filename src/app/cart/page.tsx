@@ -31,9 +31,8 @@ export default function CartPage() {
           price: 30,
           size: '500 ml',
           deliveryTime: 'Delivery in 8 minutes',
-          shipmentDetails: 'Shipment of 1 item',
-          deliveryCharge: 25,
-          handlingCharge: 4,
+         
+        
         },
       ];
       setCartItems(dummyData);
@@ -78,9 +77,7 @@ export default function CartPage() {
         items={cartItems}
         removeItem={removeItem}
         updateQuantity={updateQuantity}
-        deliveryTime="Delivery in 8 minutes"
-        shipmentDetails="Shipment of 1 item"
-        
+     
         cancellationPolicy="Orders cannot be cancelled once packed for delivery. In case of unexpected delays, a refund will be provided, if applicable."
       />
     </div>
